@@ -1,10 +1,12 @@
 import TableRow from "./TableRow";
-// import Loading from "./Loading";
+import Loading from "./Loading";
+import Error from "./Error";
 
+const Table = ({ launches, setSelectedLaunch, loading }) => {
 
-const Table = ({ launches, setSelectedLaunch }) => {
-
-
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div className="table-container">
             <table className="table">
@@ -23,7 +25,7 @@ const Table = ({ launches, setSelectedLaunch }) => {
 
                 <tbody>
 
-                    {
+                    {!launches ? <Error /> :
                         launches.map((launch) => {
 
                             return <TableRow key={launch.no}
