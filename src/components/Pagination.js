@@ -13,9 +13,9 @@ const Pagination = ({ launchesPerPage, totalLaunches, paginate }) => {
             <ul className='pagination'>
                 {pageNumbers.map(number => (
                     <li key={number} className='page-item'>
-                        <a onClick={() => paginate(number)} href="!#" className='page-button'>
+                        <button onClick={() => paginate(number)} className='page-button'>
                             {number}
-                        </a>
+                        </button>
                     </li>
                 ))}
             </ul>
