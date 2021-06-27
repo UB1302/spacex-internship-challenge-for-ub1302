@@ -24,6 +24,24 @@
 }
 
 /* Filter style */
+.filter-container{
+  margin: 3rem 1rem;
+  text-align: end;
+  margin: 3rem auto;
+  width: 100%;
+}
+.filter{
+  font-size: 1rem;
+}
+.filter label{
+  font-size: 1.2rem;
+  padding: 0.5rem 0.5rem ;
+}
+#launch-filter{
+  font-size: 1rem;
+  border:none;
+  outline: none;
+}
 
 /* table style */
 .table-container{
