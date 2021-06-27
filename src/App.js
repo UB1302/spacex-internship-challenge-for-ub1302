@@ -5,6 +5,7 @@ import useAPI from './hooks/useAPI';
 import Table from './components/Table';
 import Filter from './components/Filter';
 import Pagination from './components/Pagination';
+import Loading from './components/Loading';
 
 
 function App() {
@@ -15,12 +16,14 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [launchesPerPage] = useState(10);
   const { newDocuments } = useAPI(api);
+  const [loading, setLoading] = useState(true)
 
   // loading data
   useEffect(() => {
 
     setLaunches(newDocuments);
     setFilteredLaunches(newDocuments);
+    setLoading(false);
 
   }, [newDocuments]);
 
@@ -41,7 +44,7 @@ function App() {
       <main className="main">
 
         <Filter launches={launches} setFilteredLaunches={setFilteredLaunches} />
-        <Table launches={currentLaunches} />
+        {loading ? <Loading /> : <Table launches={currentLaunches} loading={loading} />}
         <Pagination launchesPerPage={launchesPerPage} totalLaunches={filteredLaunches.length} paginate={paginate} />
 
 
