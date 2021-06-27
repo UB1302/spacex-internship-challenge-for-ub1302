@@ -2,6 +2,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import useAPI from './hooks/useAPI';
+import Table from './components/Table';
 
 
 function App() {
@@ -14,8 +15,6 @@ function App() {
   useEffect(() => {
 
     setLaunches(newDocuments);
-    // setFilteredLaunches(newDocuments);
-
 
   }, [newDocuments]);
 
@@ -24,7 +23,13 @@ function App() {
       <header className="title-container">
         <h1 className="title">SPACEX 🚀</h1>
       </header>
-      {console.log(launches)}
+      <main className="main">
+
+
+        <Table launches={launches} />
+
+
+      </main>
     </div>
   );
 }
