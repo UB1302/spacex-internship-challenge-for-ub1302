@@ -1,4 +1,3 @@
-
 import './App.css';
 import { useEffect, useState } from 'react';
 import useAPI from './hooks/useAPI';
@@ -6,7 +5,7 @@ import Table from './components/Table';
 import Filter from './components/Filter';
 import Pagination from './components/Pagination';
 import Loading from './components/Loading';
-
+import Modal from './components/Modal';
 
 function App() {
 
@@ -15,6 +14,7 @@ function App() {
   const [filteredLaunches, setFilteredLaunches] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [launchesPerPage] = useState(10);
+  const [selectedLaunch, setSelectedLaunch] = useState(null);
   const { newDocuments } = useAPI(api);
   const [loading, setLoading] = useState(true)
 
@@ -44,9 +44,9 @@ function App() {
       <main className="main">
 
         <Filter launches={launches} setFilteredLaunches={setFilteredLaunches} />
-        {loading ? <Loading /> : <Table launches={currentLaunches} loading={loading} />}
+        {loading ? <Loading /> : <Table launches={currentLaunches} setSelectedLaunch={setSelectedLaunch} loading={loading} />}
         <Pagination launchesPerPage={launchesPerPage} totalLaunches={filteredLaunches.length} paginate={paginate} />
-
+        {selectedLaunch && <Modal selectedLaunch={selectedLaunch} setSelectedLaunch={setSelectedLaunch} />}
 
       </main>
     </div>
