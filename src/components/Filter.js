@@ -1,22 +1,23 @@
-const Filter = ({ launches, setFilteredLaunches }) => {
+const Filter = ({ launches, setFilteredLaunches, setCurrentPage }) => {
 
     const handleFilter = (e) => {
 
 
         if (e.target.value === 'all') {
 
+            setCurrentPage(1);
             setFilteredLaunches(launches);
 
         }
         else if (e.target.value === 'success') {
-
+            setCurrentPage(1);
             let successfulLaunches = launches.filter(launch => launch.launchStatus === 'success');
 
             setFilteredLaunches(successfulLaunches);
 
         }
         else if (e.target.value === 'failed') {
-
+            setCurrentPage(1);
             let failedLaunches = launches.filter(launch => launch.launchStatus === 'failed');
 
             setFilteredLaunches(failedLaunches);

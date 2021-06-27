@@ -43,7 +43,7 @@ function App() {
       </header>
       <main className="main">
 
-        <Filter launches={launches} setFilteredLaunches={setFilteredLaunches} />
+        <Filter launches={launches} setFilteredLaunches={setFilteredLaunches} setCurrentPage={setCurrentPage} />
         {loading ? <Loading /> : <Table launches={currentLaunches} setSelectedLaunch={setSelectedLaunch} loading={loading} />}
         <Pagination launchesPerPage={launchesPerPage} totalLaunches={filteredLaunches.length} paginate={paginate} />
         {selectedLaunch && <Modal selectedLaunch={selectedLaunch} setSelectedLaunch={setSelectedLaunch} />}
