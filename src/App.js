@@ -21,6 +21,9 @@ function App() {
 
   return (
     <div className="App">
+      <header className="title-container">
+        <h1 className="title">SPACEX 🚀</h1>
+      </header>
       {console.log(launches)}
     </div>
   );
