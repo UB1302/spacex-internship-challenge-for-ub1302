@@ -32,7 +32,7 @@ const Modal = ({ selectedLaunch, setSelectedLaunch }) => {
                 articleLink: links.article_link,
                 wikipediaLink: links.wikipedia,
                 youtubeLink: links.video_link,
-                details: details.substring(0, 100),
+                details: details,
                 manufacturer: rocket.second_stage.payloads[0].manufacturer,
                 nationality: rocket.second_stage.payloads[0].nationality,
                 payload_type: rocket.second_stage.payloads[0].payload_type
