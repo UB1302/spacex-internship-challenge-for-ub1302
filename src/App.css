@@ -24,6 +24,24 @@
 }
 
 /* Filter style */
+.filter-container{
+  margin: 3rem 1rem;
+  text-align: end;
+  margin: 3rem auto;
+  width: 100%;
+}
+.filter{
+  font-size: 1rem;
+}
+.filter label{
+  font-size: 1.2rem;
+  padding: 0.5rem 0.5rem ;
+}
+#launch-filter{
+  font-size: 1rem;
+  border:none;
+  outline: none;
+}
 
 /* table style */
 .table-container{
@@ -67,4 +85,29 @@
   
   border:none;
   border-radius: 4px;
+}
+/* pagination style */
+.pagination-container{
+  
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  
+}
+.pagination{
+  display: flex;
+  list-style: none;
+  border: 2px solid #d8e2dc;
+  border-radius: 6px;
+  
+}
+
+.page-button{
+  color: black;
+  padding: 0.5rem 0.5rem;
+  border: none;
+  background-color: white;
+  border-left: 1px solid #d8e2dc;
+  border-radius: 3px;
+  cursor: pointer;
 }
