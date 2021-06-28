@@ -5,11 +5,11 @@ import Table from './components/Table';
 import Filter from './components/Filter';
 import Pagination from './components/Pagination';
 import Loading from './components/Loading';
-import Modal from './components/Modal';
+// import Modal from './components/Modal';
 
 function App() {
 
-  const api = 'https://api.spacexdata.com/v3/launches';
+  const api = 'https://api.spacexdata.com/v4/launches';
   const [launches, setLaunches] = useState([]);
   const [filteredLaunches, setFilteredLaunches] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +18,8 @@ function App() {
   const { newDocuments } = useAPI(api);
   const [loading, setLoading] = useState(true)
 
-  // loading data
+
+
   useEffect(() => {
 
     setLaunches(newDocuments);
@@ -46,7 +47,7 @@ function App() {
         <Filter launches={launches} setFilteredLaunches={setFilteredLaunches} setCurrentPage={setCurrentPage} />
         {loading ? <Loading /> : <Table launches={currentLaunches} setSelectedLaunch={setSelectedLaunch} loading={loading} />}
         <Pagination launchesPerPage={launchesPerPage} totalLaunches={filteredLaunches.length} paginate={paginate} />
-        {selectedLaunch && <Modal selectedLaunch={selectedLaunch} setSelectedLaunch={setSelectedLaunch} />}
+        {/* {selectedLaunch && <Modal selectedLaunch={selectedLaunch} setSelectedLaunch={setSelectedLaunch} />} */}
 
       </main>
     </div>

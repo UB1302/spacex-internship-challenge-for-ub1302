@@ -10,26 +10,42 @@ const useAPI = (api) => {
 
             const res = await axios.get(api);
             let documents = res.data;
-            documents.pop();
 
-            const newData = documents.map(doc => {
-                let { flight_number, launch_date_utc, launch_site, mission_name, launch_success, rocket } = doc;
-                if (launch_success) {
-                    launch_success = "success"
-                } else {
-                    launch_success = "failed"
+            const newData = await Promise.all(documents.map(async (doc) => {
+                const { id, flight_number, date_utc, launchpad, name, success, upcoming, rocket, payloads } = doc;
+                const payloadId = payloads[0];
+
+
+                const launchpadData = await axios.get(`https://api.spacexdata.com/v4/launchpads/${launchpad}`);
+                const launchpadName = launchpadData.data.name;
+                const rocketData = await axios.get(`https://api.spacexdata.com/v4/rockets/${rocket}`);
+                const rocketName = rocketData.data.name;
+                const payloadData = await axios.get(`https://api.spacexdata.com/v4/payloads/${payloadId}`);
+                const orbitName = payloadData.data.orbit;
+
+
+                let launch_state = null;
+                if (success === false && upcoming === false) {
+                    launch_state = "failed";
+                } else if (success === true) {
+                    launch_state = "success";
+                } else if (upcoming === true) {
+                    launch_state = "upcoming";
                 }
+
+
                 return {
+                    id: id,
                     no: flight_number,
-                    launched: launch_date_utc,
-                    location: launch_site.site_name,
-                    mission: mission_name,
-                    orbit: rocket.second_stage.payloads[0].orbit,
-                    launchStatus: launch_success,
-                    rocketName: rocket.rocket_name,
+                    launched: date_utc,
+                    location: launchpadName,
+                    mission: name,
+                    orbit: orbitName,
+                    launchStatus: launch_state,
+                    rocketName: rocketName
 
                 }
-            })
+            }))
 
             setNewDocuments(newData);
         }
@@ -37,7 +53,6 @@ const useAPI = (api) => {
 
 
     }, [api])
-
 
     return { newDocuments };
 }

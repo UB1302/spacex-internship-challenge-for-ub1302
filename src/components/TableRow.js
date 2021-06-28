@@ -9,8 +9,11 @@ const TableRow = ({ no, launched, location, mission, orbit, launchStatus, rocket
     useEffect(() => {
         if (launchStatus === "success") {
             status.current.classList.add(true);
-        } else {
+        } else if (launchStatus === "failed") {
             status.current.classList.add(false)
+        }
+        else {
+            status.current.classList.add("upcoming");
         }
 
 
@@ -22,7 +25,6 @@ const TableRow = ({ no, launched, location, mission, orbit, launchStatus, rocket
             <td>{location}</td>
             <td>{mission}</td>
             <td>{orbit}</td>
-
             <td ><button className="status" ref={status}>{launchStatus}</button></td>
             <td>{rocketName}</td>
         </tr>

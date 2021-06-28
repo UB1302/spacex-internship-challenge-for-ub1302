@@ -1,8 +1,10 @@
 import TableRow from "./TableRow";
 import Loading from "./Loading";
 import Error from "./Error";
+import { useState } from "react";
 
 const Table = ({ launches, setSelectedLaunch, loading }) => {
+
 
     if (loading) {
         return <Loading />
@@ -28,7 +30,7 @@ const Table = ({ launches, setSelectedLaunch, loading }) => {
                     {!launches ? <Error /> :
                         launches.map((launch) => {
 
-                            return <TableRow key={launch.no}
+                            return <TableRow key={launch.id}
                                 no={launch.no}
                                 launched={launch.launched}
                                 location={launch.location}

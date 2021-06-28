@@ -12,12 +12,15 @@ const Modal = ({ selectedLaunch, setSelectedLaunch }) => {
     useEffect(() => {
 
         const fetch = async () => {
-            let res = await axios.get(`https://api.spacexdata.com/v3/launches?flight_number=${selectedLaunch}`);
+            let res = await axios.get(`https://api.spacexdata.com/v4/launches/${selectedLaunch}`);
             let { flight_number, launch_date_utc, launch_site, mission_name, launch_success, rocket, links, details } = res.data[0];
-            if (launch_success) {
-                launch_success = "success"
-            } else {
-                launch_success = "failed"
+            let launch_state = null;
+            if (success === false && upcoming === false) {
+                launch_state = "failed";
+            } else if (success === true) {
+                launch_state = "success";
+            } else if (upcoming === true) {
+                launch_state = "upcoming";
             }
             setData({
                 no: flight_number,
@@ -25,7 +28,7 @@ const Modal = ({ selectedLaunch, setSelectedLaunch }) => {
                 location: launch_site.site_name,
                 missionName: mission_name,
                 orbit: rocket.second_stage.payloads[0].orbit,
-                launchStatus: launch_success,
+                launchStatus: launch_state,
                 rocketName: rocket.rocket_name,
                 rocketType: rocket.rocket_type,
                 missionPatch: links.mission_patch_small,
