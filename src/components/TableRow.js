@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 
 
-const TableRow = ({ no, launched, location, mission, orbit, launchStatus, rocketName, setSelectedLaunch }) => {
+const TableRow = ({ id, no, launched, location, mission, orbit, launchStatus, rocketName, setSelectedLaunch }) => {
 
     const status = useRef();
 
@@ -19,7 +19,7 @@ const TableRow = ({ no, launched, location, mission, orbit, launchStatus, rocket
 
     }, [launchStatus])
     return (
-        <tr onClick={() => setSelectedLaunch(no)}>
+        <tr onClick={() => setSelectedLaunch(id)}>
             <td>{no}</td>
             <td>{launched}</td>
             <td>{location}</td>

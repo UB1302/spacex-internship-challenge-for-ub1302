@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from "framer-motion";
 import axios from 'axios';
 
@@ -9,36 +9,58 @@ const Modal = ({ selectedLaunch, setSelectedLaunch }) => {
     const [data, setData] = useState(null);
 
 
+
     useEffect(() => {
 
         const fetch = async () => {
             let res = await axios.get(`https://api.spacexdata.com/v4/launches/${selectedLaunch}`);
-            let { flight_number, launch_date_utc, launch_site, mission_name, launch_success, rocket, links, details } = res.data[0];
+            let { flight_number, date_utc, launchpad, name, payloads, success, upcoming, rocket, links, details } = res.data;
+            const payloadId = payloads[0];
+
+            const launchpadData = await axios.get(`https://api.spacexdata.com/v4/launchpads/${launchpad}`);
+            const launchpadName = launchpadData.data.name;
+            const payloadData = await axios.get(`https://api.spacexdata.com/v4/payloads/${payloadId}`);
+            const orbitName = payloadData.data.orbit;
+            const manufacturerName = payloadData.data.manufacturers[0];
+            const nationalityName = payloadData.data.nationalities[0];
+            const payloadType = payloadData.data.type;
+            const rocketData = await axios.get(`https://api.spacexdata.com/v4/rockets/${rocket}`);
+            const rocketName = rocketData.data.name;
+            const rocketType = rocketData.data.type;
+
+
+
+
+
             let launch_state = null;
             if (success === false && upcoming === false) {
                 launch_state = "failed";
+
             } else if (success === true) {
                 launch_state = "success";
+
             } else if (upcoming === true) {
                 launch_state = "upcoming";
+
             }
+
             setData({
                 no: flight_number,
-                launchDate: launch_date_utc,
-                location: launch_site.site_name,
-                missionName: mission_name,
-                orbit: rocket.second_stage.payloads[0].orbit,
+                launchDate: date_utc,
+                location: launchpadName,
+                missionName: name,
+                orbit: orbitName,
                 launchStatus: launch_state,
-                rocketName: rocket.rocket_name,
-                rocketType: rocket.rocket_type,
-                missionPatch: links.mission_patch_small,
-                articleLink: links.article_link,
+                rocketName: rocketName,
+                rocketType: rocketType,
+                missionPatch: links.patch.small,
+                articleLink: links.article,
                 wikipediaLink: links.wikipedia,
-                youtubeLink: links.video_link,
+                youtubeLink: links.webcast,
                 details: details,
-                manufacturer: rocket.second_stage.payloads[0].manufacturer,
-                nationality: rocket.second_stage.payloads[0].nationality,
-                payload_type: rocket.second_stage.payloads[0].payload_type
+                manufacturer: manufacturerName,
+                nationality: nationalityName,
+                payload_type: payloadType
 
             })
 
@@ -48,6 +70,8 @@ const Modal = ({ selectedLaunch, setSelectedLaunch }) => {
 
 
     }, [selectedLaunch])
+
+
 
 
     function handleClick(e) {
@@ -82,7 +106,7 @@ const Modal = ({ selectedLaunch, setSelectedLaunch }) => {
                             </p>
                         </div>
                         <div className="modal-status">
-                            <button className="status">{data.launchStatus}</button>
+                            <button className="status ">{data.launchStatus}</button>
                         </div>
                     </div>
 
