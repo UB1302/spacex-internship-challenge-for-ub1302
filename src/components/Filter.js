@@ -21,6 +21,10 @@ const Filter = ({ launches, setFilteredLaunches, setCurrentPage }) => {
             let failedLaunches = launches.filter(launch => launch.launchStatus === 'failed');
 
             setFilteredLaunches(failedLaunches);
+        } else if (e.target.value === 'upcoming') {
+            setCurrentPage(1);
+            let upcomingLaunches = launches.filter(launch => launch.launchStatus === 'upcoming');
+            setFilteredLaunches(upcomingLaunches);
         }
     }
 
@@ -34,6 +38,7 @@ const Filter = ({ launches, setFilteredLaunches, setCurrentPage }) => {
                     <option value="all">All Launches</option>
                     <option value="success">Successful Launches</option>
                     <option value="failed">Failed Launches</option>
+                    <option value="upcoming">Upcoming Launches</option>
                 </select>
             </div>
 

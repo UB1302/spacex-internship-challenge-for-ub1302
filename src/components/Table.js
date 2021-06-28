@@ -4,6 +4,7 @@ import Error from "./Error";
 
 const Table = ({ launches, setSelectedLaunch, loading }) => {
 
+
     if (loading) {
         return <Loading />
     }
@@ -28,7 +29,8 @@ const Table = ({ launches, setSelectedLaunch, loading }) => {
                     {!launches ? <Error /> :
                         launches.map((launch) => {
 
-                            return <TableRow key={launch.no}
+                            return <TableRow key={launch.id}
+                                id={launch.id}
                                 no={launch.no}
                                 launched={launch.launched}
                                 location={launch.location}

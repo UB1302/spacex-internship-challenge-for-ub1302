@@ -9,7 +9,7 @@ import Modal from './components/Modal';
 
 function App() {
 
-  const api = 'https://api.spacexdata.com/v3/launches';
+  const api = 'https://api.spacexdata.com/v4/launches';
   const [launches, setLaunches] = useState([]);
   const [filteredLaunches, setFilteredLaunches] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +18,8 @@ function App() {
   const { newDocuments } = useAPI(api);
   const [loading, setLoading] = useState(true)
 
-  // loading data
+
+
   useEffect(() => {
 
     setLaunches(newDocuments);
